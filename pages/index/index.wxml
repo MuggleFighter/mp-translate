@@ -1,0 +1,34 @@
+<!--index.wxml-->
+<view id="index">
+    <view class="lang">
+        <picker mode = selector value="{{fromLangIndex}}" range="{{fromLangList}}" range-key="name" bindchange="changeFromLang">
+            <view class="lang-from">
+                {{fromLangList[fromLangIndex].name}}
+                <text class="iconfont icon-down"></text>
+            </view>
+        </picker>
+        <view class="iconfont icon-exchange" bindtap="exchangeLang" wx:if="{{canExchange}}"></view>
+        <view class="iconfont icon-exchange disabled" wx:else></view>
+        <picker mode = selector value="{{toLangIndex}}" range="{{toLangList}}" range-key="name" bindchange="changeToLang">
+            <view class="lang-from">
+                {{toLangList[toLangIndex].name}}
+                <text class="iconfont icon-down"></text>
+            </view>
+        </picker>
+    </view>
+    <view class="from">
+        <textarea bindinput="onInput" placeholder="请输入待翻译文字" maxlength="-1" value="{{q}}" show-confirm-bar="{{true}}">
+            <view class="iconfont icon-close" bindtap="clearText"></view>
+            <view class="iconfont icon-right" bindtap="pushToHistory"></view>
+        </textarea>
+    </view>
+    <view class="to" hidden="{{!translatedText}}">
+        <text>{{translatedText}}</text>
+    </view>
+    <view class="history-wrap">
+        <view class="history-item" wx:for="{{history}}" wx:key="{{index}}" bindtap="visitHistory" data-q="{{item.q}}" data-result="{{item.result}}">
+            <view class="raw">{{item.q}}</view>
+            <view class="translate">{{item.result}}</view>
+        </view>
+    </view>
+</view>
